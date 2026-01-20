@@ -1,3 +1,7 @@
 <h1><%= @list.name %></h1>
 
+<% if @list.photo.attached? %>
+  <%= cl_image_tag @list.photo.key %>
+<% end %>
+
 <%= link_to "Back to lists", lists_path %>
