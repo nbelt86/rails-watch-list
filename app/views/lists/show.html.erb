@@ -1,7 +1,28 @@
 <h1><%= @list.name %></h1>
 
+<% if @list.bookmarks.any?  %>
+  <ul>
+    <% @list.bookmarks.each do |bookmark|  %>
+      <li>
+        <strong><%= bookmark.movie.title %></strong><br>
+        <em><%= bookmark.comment %></em><br>
+
+        <%= link_to "Delete",
+        bookmark_path(bookmark),
+        data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+      </li>
+<% end %>
+  </ul>
+<% else  %>
+  <p>No movies added yet.</p>
+<% end %>
+
 <% if @list.photo.attached? %>
   <%= cl_image_tag @list.photo.key %>
 <% end %>
+
+<%= link_to "Add a bookmark", new_list_bookmark_path(@list) %>
+
+
 
 <%= link_to "Back to lists", lists_path %>
